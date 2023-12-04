@@ -1,0 +1,26 @@
+server {
+    access_log /dev/stdout;
+
+    server_name   ${SERVER_NAME:-_};
+    listen        80;
+
+    error_page    500 502 503 504  /50x.html;
+
+    location      / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+    }
+
+    location /v1/chat/completions {
+        ${IP_AC}
+        proxy_pass https://api.openai.com/v1/chat/completions;
+        proxy_ssl_name api.openai.com; 
+        proxy_ssl_server_name on;
+        # Forward all headers
+        proxy_pass_request_headers on;
+        proxy_set_header Authorization "${OPENAI_API_KEY:?}";
+
+        proxy_buffering off; # Make the API responsive
+        proxy_set_header TCP_NODELAY on;
+    }
+}
