@@ -5,8 +5,8 @@ A Dockerfile to build a nginx Docker image that reverse proxy OpenAI API with Op
 ## Usage
 ```bash
 docker run -d -p 9000:80 \
-  -e IP_AC="$(cat ip_ac.txt)"\
-  -e OPENAI_API_KEY=sk-YOUR_API_KEY
+  -e IP_AC="$(cat ip_ac.txt)" \
+  -e OPENAI_API_KEY=sk-YOUR_API_KEY \
   openai-api-proxy
 ```
 
