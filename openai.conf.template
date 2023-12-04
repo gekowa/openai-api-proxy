@@ -18,7 +18,7 @@ server {
         proxy_ssl_server_name on;
         # Forward all headers
         proxy_pass_request_headers on;
-        proxy_set_header Authorization "${OPENAI_API_KEY:?}";
+        proxy_set_header Authorization `${OPENAI_API_KEY}`;
 
         proxy_buffering off; # Make the API responsive
         proxy_set_header TCP_NODELAY on;
